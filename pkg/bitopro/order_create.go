@@ -66,8 +66,8 @@ func (api *AuthAPI) CreateOrderMarketBuy(pair string, amount float64) *CreateOrd
 // CreateOrderMarketSell Ref. https://developer.bitopro.com/docs#operation/createOrder
 func (api *AuthAPI) CreateOrderMarketSell(pair string, amount float64) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
-		"type":      "sell",
-		"action":    "buy",
+		"type":      "market",
+		"action":    "sell",
 		"amount":    fmt.Sprintf("%v", amount),
 		"timestamp": internal.GetTimestamp(),
 	})
