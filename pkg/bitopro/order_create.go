@@ -32,43 +32,43 @@ func createOrder(api *AuthAPI, pair string, body map[string]interface{}) *Create
 }
 
 // CreateOrderLimitBuy Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderLimitBuy(pair string, price, amount float64) *CreateOrder {
+func (api *AuthAPI) CreateOrderLimitBuy(pair, price, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "limit",
 		"action":    "buy",
-		"price":     fmt.Sprintf("%v", price),
-		"amount":    fmt.Sprintf("%v", amount),
+		"price":     price,
+		"amount":    amount,
 		"timestamp": internal.GetTimestamp(),
 	})
 }
 
 // CreateOrderLimitSell Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderLimitSell(pair string, price, amount float64) *CreateOrder {
+func (api *AuthAPI) CreateOrderLimitSell(pair, price, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "limit",
 		"action":    "sell",
-		"price":     fmt.Sprintf("%v", price),
-		"amount":    fmt.Sprintf("%v", amount),
+		"price":     price,
+		"amount":    amount,
 		"timestamp": internal.GetTimestamp(),
 	})
 }
 
 // CreateOrderMarketBuy Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderMarketBuy(pair string, amount float64) *CreateOrder {
+func (api *AuthAPI) CreateOrderMarketBuy(pair, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "market",
 		"action":    "buy",
-		"amount":    fmt.Sprintf("%v", amount),
+		"amount":    amount,
 		"timestamp": internal.GetTimestamp(),
 	})
 }
 
 // CreateOrderMarketSell Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderMarketSell(pair string, amount float64) *CreateOrder {
+func (api *AuthAPI) CreateOrderMarketSell(pair, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "market",
 		"action":    "sell",
-		"amount":    fmt.Sprintf("%v", amount),
+		"amount":    amount,
 		"timestamp": internal.GetTimestamp(),
 	})
 }
