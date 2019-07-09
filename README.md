@@ -1,31 +1,31 @@
 # BitoPro API Client for Go
 
-- [BitoPro API Client for Go](#bitopro-api-client-for-go)
-  - [Requirement](#requirement)
-  - [Installation](#installation)
-    - [Limitations](#limitations)
-      - [Rate Limit](#rate-limit)
-      - [Precisions](#precisions)
-      - [Minimum order amount](#minimum-order-amount)
-  - [Getting Started](#getting-started)
-      - [Public API](#public-api)
-      - [Authenticated API](#authenticated-api)
-        - [Basic](#basic)
-        - [From Viper](#from-viper)
-    - [Public REST Endpoints](#public-rest-endpoints)
-      - [GetOrderBook](#getorderbook)
-      - [GetTicker](#getticker)
-      - [GetTickers](#gettickers)
-      - [GetTrades](#gettrades)
-    - [Authenticated REST Endpoints](#authenticated-rest-endpoints)
-      - [GetAccountBalance](#getaccountbalance)
-      - [GetOrderHistory](#getorderhistory)
-      - [GetOrderList](#getorderlist)
-      - [CreateOrderLimitBuy/CreateOrderLimitSell/CreateOrderMarketBuy/CreateOrderMarketSell](#createorderlimitbuycreateorderlimitsellcreateordermarketbuycreateordermarketsell)
-      - [CancelOrder](#cancelorder)
-      - [GetOrder](#getorder)
-  - [Contributing](#contributing)
-  - [License](#license)
+- [BitoPro API Client for Go](#BitoPro-API-Client-for-Go)
+  - [Requirement](#Requirement)
+  - [Installation](#Installation)
+    - [Limitations](#Limitations)
+      - [Rate Limit](#Rate-Limit)
+      - [Precisions](#Precisions)
+      - [Minimum order amount](#Minimum-order-amount)
+  - [Getting Started](#Getting-Started)
+      - [Public API](#Public-API)
+      - [Authenticated API](#Authenticated-API)
+        - [Basic](#Basic)
+        - [From Viper](#From-Viper)
+    - [Public REST Endpoints](#Public-REST-Endpoints)
+      - [GetOrderBook](#GetOrderBook)
+      - [GetTicker](#GetTicker)
+      - [GetTickers](#GetTickers)
+      - [GetTrades](#GetTrades)
+    - [Authenticated REST Endpoints](#Authenticated-REST-Endpoints)
+      - [GetAccountBalance](#GetAccountBalance)
+      - [GetOrderHistory](#GetOrderHistory)
+      - [GetOrderList](#GetOrderList)
+      - [CreateOrderLimitBuy/CreateOrderLimitSell/CreateOrderMarketBuy/CreateOrderMarketSell](#CreateOrderLimitBuyCreateOrderLimitSellCreateOrderMarketBuyCreateOrderMarketSell)
+      - [CancelOrder](#CancelOrder)
+      - [GetOrder](#GetOrder)
+  - [Contributing](#Contributing)
+  - [License](#License)
 
 ## Requirement
 
@@ -440,13 +440,13 @@ authClient.GetOrderList("btc_twd", false, 1)
 
 ```go
 // create limit buy order
-authClient.CreateOrderLimitBuy("eth_twd", 0.1, 1)
+authClient.CreateOrderLimitBuy("eth_twd", "0.1", "1")
 // create limit sell order
-authClient.CreateOrderLimitSell("eth_twd", 0.1, 1)
+authClient.CreateOrderLimitSell("eth_twd", "0.1", "1")
 // create market buy order
-authClient.CreateOrderMarketBuy("eth_twd", 1)
+authClient.CreateOrderMarketBuy("eth_twd", "1")
 // create market sell order
-authClient.CreateOrderMarketSell("eth_twd", 1)
+authClient.CreateOrderMarketSell("eth_twd", "1")
 ```
 
 <details>
