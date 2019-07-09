@@ -22,10 +22,10 @@ type OrderBook struct {
 	StatusCode
 }
 
-func getOrderBook(pair string) *OrderBook {
+func getOrderBook(pair string, limit int) *OrderBook {
 	var data OrderBook
 
-	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s", "v2/order-book", pair))
+	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s?limit=%d", "v2/order-book", pair, limit))
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
@@ -38,10 +38,20 @@ func getOrderBook(pair string) *OrderBook {
 
 // GetOrderBook Ref. https://developer.bitopro.com/docs#operation/getOrderBookByPair
 func (*PubAPI) GetOrderBook(pair string) *OrderBook {
-	return getOrderBook(pair)
+	return getOrderBook(pair, 5)
 }
 
 // GetOrderBook Ref. https://developer.bitopro.com/docs#operation/getOrderBookByPair
 func (*AuthAPI) GetOrderBook(pair string) *OrderBook {
-	return getOrderBook(pair)
+	return getOrderBook(pair, 5)
+}
+
+// GetOrderBookWithLimit Ref. https://developer.bitopro.com/docs#operation/getOrderBookByPair
+func (*PubAPI) GetOrderBookWithLimit(pair string, limit int) *OrderBook {
+	return getOrderBook(pair, limit)
+}
+
+// GetOrderBookWithLimit Ref. https://developer.bitopro.com/docs#operation/getOrderBookByPair
+func (*AuthAPI) GetOrderBookWithLimit(pair string, limit int) *OrderBook {
+	return getOrderBook(pair, limit)
 }
