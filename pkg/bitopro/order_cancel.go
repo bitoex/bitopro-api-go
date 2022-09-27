@@ -21,7 +21,7 @@ type CancelOrder struct {
 func (api *AuthAPI) CancelOrder(pair string, orderID int) *CancelOrder {
 	var data CancelOrder
 
-	code, res := internal.ReqWithoutBody(api.identity, api.key, api.secret, "DELETE", fmt.Sprintf("%s/%s/%d", "v2/orders", pair, orderID))
+	code, res := internal.ReqWithoutBody(api.identity, api.key, api.secret, "DELETE", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID))
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

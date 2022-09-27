@@ -12,6 +12,7 @@ type Balance struct {
 	Amount    string `json:"amount"`
 	Available string `json:"available"`
 	Stake     string `json:"stake"`
+	Tradable  string `json:"tradable"`
 }
 
 // Account struct
@@ -24,7 +25,7 @@ type Account struct {
 func (api *AuthAPI) GetAccountBalance() *Account {
 	var data Account
 
-	code, res := internal.ReqWithoutBody(api.identity, api.key, api.secret, "GET", "v2/accounts/balance")
+	code, res := internal.ReqWithoutBody(api.identity, api.key, api.secret, "GET", "v3/accounts/balance")
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

@@ -27,7 +27,7 @@ type Ticker struct {
 func getTicker(pair string) *Ticker {
 	var data Ticker
 
-	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s", "v2/tickers", pair))
+	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s", "v3/tickers", pair))
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

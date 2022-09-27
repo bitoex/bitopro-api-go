@@ -6,9 +6,21 @@ import (
 	"strings"
 
 	"github.com/parnurzeal/gorequest"
+	"github.com/spf13/viper"
 )
 
-const apiURL = "https://api.bitopro.com"
+var apiURL = "https://api.bitopro.com"
+
+func init() {
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("../..")
+	viper.SetConfigName("secret")
+	viper.ReadInConfig()
+	endpoint := viper.GetString("endpoint")
+	if endpoint != "" {
+		apiURL = endpoint
+	}
+}
 
 // ReqPublic func
 func ReqPublic(api string) (int, string) {
@@ -53,7 +65,7 @@ func ReqWithBody(identity, apiKey, apiSecret, endpoint string, param map[string]
 	sig := getSig(apiSecret, payload)
 	url := fmt.Sprintf("%s/%s", apiURL, endpoint)
 	req := gorequest.New().Post(url)
-
+	fmt.Println("url", url)
 	req.Set("X-BITOPRO-APIKEY", apiKey)
 	req.Set("X-BITOPRO-PAYLOAD", payload)
 	req.Set("X-BITOPRO-SIGNATURE", sig)

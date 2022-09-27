@@ -9,11 +9,14 @@ import (
 
 // CreateOrder struct
 type CreateOrder struct {
-	OrderID   string `json:"orderId,omitempty"`
-	Timestamp int64  `json:"timestamp,omitempty"`
-	Action    string `json:"action,omitempty"`
-	Amount    string `json:"amount,omitempty"`
-	Price     string `json:"price,omitempty"`
+	OrderID     string `json:"orderId,omitempty"`
+	Timestamp   int64  `json:"timestamp,omitempty"`
+	Type        string `json:"type,omitempty"`
+	Action      string `json:"action,omitempty"`
+	Amount      string `json:"amount,omitempty"`
+	Price       string `json:"price,omitempty"`
+	TimeInForce string `json:"timeInForce,omitempty"`
+	ClientID    string `json:"clientId,omitempty"`
 	StatusCode
 }
 
@@ -32,43 +35,47 @@ func createOrder(api *AuthAPI, pair string, body map[string]interface{}) *Create
 }
 
 // CreateOrderLimitBuy Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderLimitBuy(pair, price, amount string) *CreateOrder {
+func (api *AuthAPI) CreateOrderLimitBuy(clientID int, pair, price, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "limit",
 		"action":    "buy",
 		"price":     price,
 		"amount":    amount,
+		"clientId":  clientID,
 		"timestamp": internal.GetTimestamp(),
 	})
 }
 
 // CreateOrderLimitSell Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderLimitSell(pair, price, amount string) *CreateOrder {
+func (api *AuthAPI) CreateOrderLimitSell(clientID int, pair, price, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "limit",
 		"action":    "sell",
 		"price":     price,
 		"amount":    amount,
+		"clientId":  clientID,
 		"timestamp": internal.GetTimestamp(),
 	})
 }
 
 // CreateOrderMarketBuy Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderMarketBuy(pair, amount string) *CreateOrder {
+func (api *AuthAPI) CreateOrderMarketBuy(clientID int, pair, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "market",
 		"action":    "buy",
 		"amount":    amount,
+		"clientId":  clientID,
 		"timestamp": internal.GetTimestamp(),
 	})
 }
 
 // CreateOrderMarketSell Ref. https://developer.bitopro.com/docs#operation/createOrder
-func (api *AuthAPI) CreateOrderMarketSell(pair, amount string) *CreateOrder {
+func (api *AuthAPI) CreateOrderMarketSell(clientID int, pair, amount string) *CreateOrder {
 	return createOrder(api, pair, map[string]interface{}{
 		"type":      "market",
 		"action":    "sell",
 		"amount":    amount,
+		"clientId":  clientID,
 		"timestamp": internal.GetTimestamp(),
 	})
 }

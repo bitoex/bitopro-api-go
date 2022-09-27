@@ -6,7 +6,7 @@ import (
 )
 
 func TestAuthAPI_CancelOrder(t *testing.T) {
-	if json, err := json.MarshalIndent(getAuthClient().CancelOrder("eth_twd", 7517762903), "", "  "); err != nil {
+	if json, err := json.MarshalIndent(getAuthClient().CancelOrder("eth_twd", 5301507365), "", "  "); err != nil {
 		t.Error(err)
 	} else {
 		t.Logf("\n%s", string(json))
