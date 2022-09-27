@@ -6,9 +6,21 @@ import (
 	"strings"
 
 	"github.com/parnurzeal/gorequest"
+	"github.com/spf13/viper"
 )
 
-const apiURL = "https://api.bitopro.com"
+var apiURL = "https://api.bitopro.com"
+
+func init() {
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("../..")
+	viper.SetConfigName("secret")
+	viper.ReadInConfig()
+	endpoint := viper.GetString("endpoint")
+	if endpoint != "" {
+		apiURL = endpoint
+	}
+}
 
 // ReqPublic func
 func ReqPublic(api string) (int, string) {

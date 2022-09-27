@@ -25,7 +25,7 @@ type OrderBook struct {
 func getOrderBook(pair string, limit int) *OrderBook {
 	var data OrderBook
 
-	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s?limit=%d", "v2/order-book", pair, limit))
+	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s?limit=%d", "v3/order-book", pair, limit))
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

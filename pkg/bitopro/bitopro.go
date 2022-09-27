@@ -1,7 +1,8 @@
 package bitopro
 
 // PubAPI struct
-type PubAPI struct{}
+type PubAPI struct {
+}
 
 // AuthAPI struct
 type AuthAPI struct {
@@ -26,6 +27,6 @@ func GetAuthClient(identity, key, secret string) *AuthAPI {
 
 // StatusCode struct
 type StatusCode struct {
-	Code  int    `json:"code"`
+	Code  int    `json:"code,omitempty"`
 	Error string `json:"error,omitempty"`
 }

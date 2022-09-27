@@ -15,7 +15,7 @@ type Tickers struct {
 func getTickers() *Tickers {
 	var data Tickers
 
-	code, res := internal.ReqPublic("v2/tickers")
+	code, res := internal.ReqPublic("v3/tickers")
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
