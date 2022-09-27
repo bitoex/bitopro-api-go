@@ -65,7 +65,7 @@ func ReqWithBody(identity, apiKey, apiSecret, endpoint string, param map[string]
 	sig := getSig(apiSecret, payload)
 	url := fmt.Sprintf("%s/%s", apiURL, endpoint)
 	req := gorequest.New().Post(url)
-	fmt.Println("url", url)
+
 	req.Set("X-BITOPRO-APIKEY", apiKey)
 	req.Set("X-BITOPRO-PAYLOAD", payload)
 	req.Set("X-BITOPRO-SIGNATURE", sig)
