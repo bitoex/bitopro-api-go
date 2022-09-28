@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var apiURL = "https://api.bitopro.com"
+var ApiURL = "https://api.bitopro.com"
 
 func init() {
 	viper.AddConfigPath(".")
@@ -18,17 +18,17 @@ func init() {
 	viper.ReadInConfig()
 	endpoint := viper.GetString("endpoint")
 	if endpoint != "" {
-		apiURL = endpoint
+		ApiURL = endpoint
 	}
 }
 
 func SetEndpoint(in string) {
-	apiURL = in
+	ApiURL = in
 }
 
 // ReqPublic func
 func ReqPublic(api string) (int, string) {
-	req := gorequest.New().Get(fmt.Sprintf("%s/%s", apiURL, api))
+	req := gorequest.New().Get(fmt.Sprintf("%s/%s", ApiURL, api))
 
 	req.Set("X-BITOPRO-API", "golang")
 
@@ -42,7 +42,7 @@ func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint string) (int, 
 	payload := getNonPostPayload(identity, GetTimestamp())
 	sig := getSig(apiSecret, payload)
 	req := gorequest.New()
-	url := fmt.Sprintf("%s/%s", apiURL, endpoint)
+	url := fmt.Sprintf("%s/%s", ApiURL, endpoint)
 
 	switch strings.ToUpper(method) {
 	case "GET":
@@ -67,7 +67,7 @@ func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint string) (int, 
 func ReqWithBody(identity, apiKey, apiSecret, endpoint string, param map[string]interface{}) (int, string) {
 	body, payload := getPostPayload(param)
 	sig := getSig(apiSecret, payload)
-	url := fmt.Sprintf("%s/%s", apiURL, endpoint)
+	url := fmt.Sprintf("%s/%s", ApiURL, endpoint)
 	req := gorequest.New().Post(url)
 
 	req.Set("X-BITOPRO-APIKEY", apiKey)
