@@ -12,7 +12,7 @@ type Balance struct {
 	Amount    string `json:"amount"`
 	Available string `json:"available"`
 	Stake     string `json:"stake"`
-	Tradable  string `json:"tradable"`
+	Tradable  bool   `json:"tradable"`
 }
 
 // Account struct

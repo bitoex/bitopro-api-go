@@ -6,8 +6,6 @@ import (
 )
 
 func TestAuthAPI_GetAccountBalance(t *testing.T) {
-	// internal.SetEndpoint("xxx")
-
 	if json, err := json.MarshalIndent(getAuthClient().GetAccountBalance(), "", ""); err != nil {
 		t.Error(err)
 	} else {
