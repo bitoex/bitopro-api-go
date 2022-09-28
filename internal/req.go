@@ -22,6 +22,10 @@ func init() {
 	}
 }
 
+func SetEndpoint(in string) {
+	apiURL = in
+}
+
 // ReqPublic func
 func ReqPublic(api string) (int, string) {
 	req := gorequest.New().Get(fmt.Sprintf("%s/%s", apiURL, api))
