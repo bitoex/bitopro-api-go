@@ -3,6 +3,7 @@ package bitopro
 import (
 	"sync"
 
+	"github.com/bitoex/bitopro-api-go/internal"
 	"github.com/spf13/viper"
 )
 
@@ -16,6 +17,10 @@ func init() {
 	viper.AddConfigPath("../..")
 	viper.SetConfigName("secret")
 	viper.ReadInConfig()
+}
+
+func SetEndpoint(in string) {
+	internal.ApiURL = in
 }
 
 func getAuthClient() *AuthAPI {
