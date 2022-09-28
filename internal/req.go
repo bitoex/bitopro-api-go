@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/parnurzeal/gorequest"
@@ -16,7 +17,11 @@ func init() {
 	viper.AddConfigPath("../..")
 	viper.SetConfigName("secret")
 	viper.ReadInConfig()
-	endpoint := viper.GetString("endpoint")
+	var endpoint string
+	endpoint = os.Getenv("BITOPR_API_GO_ENDPOINT")
+	if endpoint == "" {
+		endpoint = viper.GetString("endpoint")
+	}
 	if endpoint != "" {
 		apiURL = endpoint
 	}
