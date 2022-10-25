@@ -27,6 +27,7 @@ func TestAuthAPI_CreateOrderMarketBuy(t *testing.T) {
 		t.Error(err)
 	} else {
 		t.Logf("\n%s", string(json))
+		t.Errorf("err=%+v\n", err)
 	}
 }
 
