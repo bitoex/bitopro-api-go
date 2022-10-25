@@ -7,16 +7,16 @@ import (
 	"github.com/bitoex/bitopro-api-go/internal"
 )
 
-// CreateOrder struct
 type CreateOrder struct {
 	OrderID     string `json:"orderId,omitempty"`
 	Timestamp   int64  `json:"timestamp,omitempty"`
-	Type        string `json:"type,omitempty"`
-	Action      string `json:"action,omitempty"`
+	IsBuy       string `json:"isBuy,omitempty"`
 	Amount      string `json:"amount,omitempty"`
 	Price       string `json:"price,omitempty"`
 	TimeInForce string `json:"timeInForce,omitempty"`
 	ClientID    string `json:"clientId,omitempty"`
+	Type        string `json:"type,omitempty"`
+	Action      string `json:"action,omitempty"`
 	StatusCode
 }
 
