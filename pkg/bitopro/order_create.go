@@ -10,13 +10,13 @@ import (
 type CreateOrder struct {
 	OrderID     string `json:"orderId,omitempty"`
 	Timestamp   int64  `json:"timestamp,omitempty"`
-	IsBuy       string `json:"isBuy,omitempty"`
+	Action      string `json:"action,omitempty"`
 	Amount      string `json:"amount,omitempty"`
+	IsBuy       string `json:"isBuy,omitempty"`
 	Price       string `json:"price,omitempty"`
 	TimeInForce string `json:"timeInForce,omitempty"`
-	ClientID    string `json:"clientId,omitempty"`
+	ClientID    int    `json:"clientId,omitempty"`
 	Type        string `json:"type,omitempty"`
-	Action      string `json:"action,omitempty"`
 	StatusCode
 }
 
@@ -24,7 +24,7 @@ func createOrder(api *AuthAPI, pair string, body map[string]interface{}) *Create
 	var data CreateOrder
 
 	code, res := internal.ReqWithBody(api.identity, api.key, api.secret, fmt.Sprintf("%s/%s", "v3/orders", pair), body)
-
+	fmt.Printf("raw res =%v\n", res)
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
 	}
