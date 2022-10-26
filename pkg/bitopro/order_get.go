@@ -29,6 +29,7 @@ type OrderInfo struct {
 	Seq               string `json:"seq,omitempty"`
 	TimeInForce       string `json:"timeInForce,omitempty"`
 	Error             error
+	Code              int `json:"code,omitempty"`
 	StatusCode
 }
 
