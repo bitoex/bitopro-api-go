@@ -24,7 +24,7 @@ func createOrder(api *AuthAPI, pair string, body map[string]interface{}) *Create
 	var data CreateOrder
 
 	code, res := internal.ReqWithBody(api.identity, api.key, api.secret, fmt.Sprintf("%s/%s", "v3/orders", pair), body)
-	fmt.Printf("raw res =%v\n", res)
+	// fmt.Printf("raw res =%v\n", res)
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
 	}
