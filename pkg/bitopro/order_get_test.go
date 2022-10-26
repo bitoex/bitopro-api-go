@@ -6,9 +6,9 @@ import (
 )
 
 func TestAuthAPI_GetOrder(t *testing.T) {
-	if json, err := json.MarshalIndent(getAuthClient().GetOrder("eth_twd", 9209011482), "", "  "); err != nil {
+	if json, err := json.MarshalIndent(getAuthClient().GetOrder("eth_twd", 1), "", "  "); err != nil {
 		t.Error(err)
 	} else {
-		t.Logf("\n%s", string(json))
+		t.Logf("resp=%+v\n", string(json))
 	}
 }

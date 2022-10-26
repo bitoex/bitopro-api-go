@@ -27,6 +27,7 @@ func GetAuthClient(identity, key, secret string) *AuthAPI {
 
 // StatusCode struct
 type StatusCode struct {
-	Code  int    `json:"code,omitempty"`
-	Error string `json:"error,omitempty"`
+	Code   int    `json:"code,omitempty"`
+	Error  string `json:"error,omitempty"`
+	Offset int    `json:"Offset,omitempty"`
 }
