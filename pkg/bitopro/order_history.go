@@ -17,7 +17,7 @@ type OrderHistory struct {
 func (api *AuthAPI) GetOrderHistory(pair string) *OrderHistory {
 	var data OrderHistory
 
-	code, res := internal.ReqWithoutBody(api.identity, api.key, api.secret, "GET", fmt.Sprintf("%s%s", "v3/orders/all/", pair))
+	code, res := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s%s", "v3/orders/all/", pair))
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

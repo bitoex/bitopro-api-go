@@ -25,7 +25,7 @@ type Account struct {
 func (api *AuthAPI) GetAccountBalance() *Account {
 	var data Account
 
-	code, res := internal.ReqWithoutBody(api.identity, api.key, api.secret, "GET", "v3/accounts/balance")
+	code, res := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", "v3/accounts/balance")
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
