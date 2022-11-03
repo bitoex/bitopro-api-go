@@ -7,7 +7,7 @@ type PubAPI struct {
 // AuthAPI struct
 type AuthAPI struct {
 	identity string
-	key      string
+	Key      string
 	secret   string
 }
 
@@ -20,14 +20,14 @@ func GetPubClient() *PubAPI {
 func GetAuthClient(identity, key, secret string) *AuthAPI {
 	return &AuthAPI{
 		identity: identity,
-		key:      key,
+		Key:      key,
 		secret:   secret,
 	}
 }
 
 // StatusCode struct
 type StatusCode struct {
-	Code   int    `json:"code,omitempty"`
-	Error  string `json:"error,omitempty"`
-	Offset int    `json:"Offset,omitempty"`
+	Code   interface{} `json:"code,omitempty"`
+	Error  string      `json:"error,omitempty"`
+	Offset int         `json:"Offset,omitempty"`
 }

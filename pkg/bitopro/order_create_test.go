@@ -26,7 +26,7 @@ func TestAuthAPI_CreateOrderMarketBuy(t *testing.T) {
 	if json, err := json.MarshalIndent(getAuthClient().CreateOrderMarketBuy(1, "eth_twd", "1000"), "", "  "); err != nil {
 		t.Errorf("err=%+v\n", err)
 	} else {
-		t.Logf("\n%s", string(json))
+		t.Logf("err=nil, res=%s", string(json))
 	}
 }
 

@@ -29,7 +29,6 @@ type OrderInfo struct {
 	Seq               string `json:"seq,omitempty"`
 	TimeInForce       string `json:"timeInForce,omitempty"`
 	Error             error
-	Code              int `json:"code,omitempty"`
 	StatusCode
 }
 
@@ -37,7 +36,7 @@ type OrderInfo struct {
 func (api *AuthAPI) GetOrder(pair string, orderID int) *OrderInfo {
 	var data OrderInfo
 
-	code, res := internal.ReqWithoutBody(api.identity, api.key, api.secret, "GET", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID))
+	code, res := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID))
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = err
 	}
