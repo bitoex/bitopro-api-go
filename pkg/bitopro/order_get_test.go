@@ -8,7 +8,11 @@ import (
 func TestAuthAPI_GetOrder(t *testing.T) {
 	var resp []byte
 	var err error
-	if resp, err = json.MarshalIndent(getAuthClient().GetOrder("eth_twd", 2559364785), "", "  "); err != nil {
+	getAuthResp, err := getAuthClient().GetOrder("eth_twd", 93592425)
+	if err != nil {
+		t.Errorf("getAuthResp err %+v\n", err)
+	}
+	if resp, err = json.MarshalIndent(getAuthResp, "", "  "); err != nil {
 		t.Error(err)
 	} else {
 		t.Logf("resp=%+v\n", string(resp))

@@ -26,10 +26,18 @@ func SetEndpoint(in string) {
 	ApiURL = in
 }
 
-// ReqPublic func
-func ReqPublic(api string) (int, string) {
-	req := gorequest.New().Get(fmt.Sprintf("%s/%s", ApiURL, api))
+func getReq(proxy string) *gorequest.SuperAgent {
+	req := gorequest.New()
+	if proxy != "" {
+		req = req.Proxy(proxy)
+	}
+	return req
+}
 
+// ReqPublic func
+func ReqPublic(api, proxy string) (int, string) {
+	req := getReq(proxy)
+	req = req.Get(fmt.Sprintf("%s/%s", ApiURL, api))
 	req.Set("X-BITOPRO-API", "golang")
 
 	res, body, _ := req.End()
@@ -38,11 +46,11 @@ func ReqPublic(api string) (int, string) {
 }
 
 // ReqWithoutBody func
-func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint string) (int, string) {
+func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint, proxy string) (int, string) {
 	payload := getNonPostPayload(identity, GetTimestamp())
 	sig := getSig(apiSecret, payload)
-	req := gorequest.New()
 	url := fmt.Sprintf("%s/%s", ApiURL, endpoint)
+	req := getReq(proxy)
 
 	switch strings.ToUpper(method) {
 	case "GET":
@@ -64,12 +72,13 @@ func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint string) (int, 
 }
 
 // ReqWithBody func
-func ReqWithBody(identity, apiKey, apiSecret, endpoint string, param map[string]interface{}) (int, string) {
+func ReqWithBody(identity, apiKey, apiSecret, endpoint, proxy string, param map[string]interface{}) (int, string) {
 	body, payload := getPostPayload(param)
 	sig := getSig(apiSecret, payload)
 	url := fmt.Sprintf("%s/%s", ApiURL, endpoint)
-	req := gorequest.New().Post(url)
+	req := getReq(proxy)
 
+	req = req.Post(url)
 	req.Set("X-BITOPRO-APIKEY", apiKey)
 	req.Set("X-BITOPRO-PAYLOAD", payload)
 	req.Set("X-BITOPRO-SIGNATURE", sig)

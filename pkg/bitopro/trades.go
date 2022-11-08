@@ -21,10 +21,10 @@ type Trade struct {
 	StatusCode
 }
 
-func getTrades(pair string) *Trade {
+func getTrades(pair, proxy string) *Trade {
 	var data Trade
 
-	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s", "v3/trades", pair))
+	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s", "v3/trades", pair), proxy)
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
@@ -36,11 +36,11 @@ func getTrades(pair string) *Trade {
 }
 
 // GetTrades Ref. https://developer.bitopro.com/docs#operation/getPairTrades
-func (*PubAPI) GetTrades(pair string) *Trade {
-	return getTrades(pair)
+func (p *PubAPI) GetTrades(pair string) *Trade {
+	return getTrades(pair, p.proxy)
 }
 
 // GetTrades Ref. https://developer.bitopro.com/docs#operation/getPairTrades
-func (*AuthAPI) GetTrades(pair string) *Trade {
-	return getTrades(pair)
+func (a *AuthAPI) GetTrades(pair string) *Trade {
+	return getTrades(pair, a.proxy)
 }
