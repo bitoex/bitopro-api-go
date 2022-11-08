@@ -12,10 +12,10 @@ type Tickers struct {
 	StatusCode
 }
 
-func getTickers() *Tickers {
+func getTickers(proxy string) *Tickers {
 	var data Tickers
 
-	code, res := internal.ReqPublic("v3/tickers")
+	code, res := internal.ReqPublic("v3/tickers", proxy)
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
@@ -27,11 +27,11 @@ func getTickers() *Tickers {
 }
 
 // GetTickers Ref. https://developer.bitopro.com/docs#operation/getTickers
-func (*PubAPI) GetTickers() *Tickers {
-	return getTickers()
+func (p *PubAPI) GetTickers() *Tickers {
+	return getTickers(p.proxy)
 }
 
 // GetTickers Ref. https://developer.bitopro.com/docs#operation/getTickers
-func (*AuthAPI) GetTickers() *Tickers {
-	return getTickers()
+func (a *AuthAPI) GetTickers() *Tickers {
+	return getTickers(a.proxy)
 }
