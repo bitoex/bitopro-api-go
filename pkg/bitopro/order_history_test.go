@@ -6,7 +6,7 @@ import (
 )
 
 func TestAuthAPI_GetOrderHistory(t *testing.T) {
-	if json, err := json.MarshalIndent(getAuthClient().GetOrderHistory("ada_usdt"), "", "  "); err != nil {
+	if json, err := json.MarshalIndent(getAuthClient().GetOrderHistory("btc_usdt"), "", "  "); err != nil {
 		t.Error(err)
 	} else {
 		t.Logf("\n%s", string(json))
