@@ -21,9 +21,13 @@ type CancelOrder struct {
 func (api *AuthAPI) CancelOrder(pair string, orderID int) *CancelOrder {
 	var data CancelOrder
 
-	code, res := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "DELETE", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID), api.proxy)
+	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "DELETE", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID), api.proxy)
 
-	if err := json.Unmarshal([]byte(res), &data); err != nil {
+	if err != nil {
+		data.Error = fmt.Sprintf("req err:[%+v], res:[%+v]", err, res)
+	}
+
+	if err = json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
 	}
 

@@ -23,8 +23,13 @@ type CreateOrder struct {
 func createOrder(api *AuthAPI, pair string, body map[string]interface{}) *CreateOrder {
 	var data CreateOrder
 
-	code, res := internal.ReqWithBody(api.identity, api.Key, api.secret, fmt.Sprintf("%s/%s", "v3/orders", pair), api.proxy, body)
-	if err := json.Unmarshal([]byte(res), &data); err != nil {
+	code, res, err := internal.ReqWithBody(api.identity, api.Key, api.secret, fmt.Sprintf("%s/%s", "v3/orders", pair), api.proxy, body)
+
+	if err != nil {
+		data.Error = fmt.Sprintf("req err:[%+v], res:[%+v]", err, res)
+	}
+
+	if err = json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
 	}
 

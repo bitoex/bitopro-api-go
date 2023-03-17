@@ -19,7 +19,11 @@ type OrderList struct {
 func (api *AuthAPI) GetOrderList(pair string, active bool, page uint) *OrderList {
 	var data OrderList
 
-	code, res := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s/%s?page=%d&active=%v", "v3/orders", pair, page, active), api.proxy)
+	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s/%s?page=%d&active=%v", "v3/orders", pair, page, active), api.proxy)
+
+	if err != nil {
+		data.Error = fmt.Sprintf("req err:[%+v], res:[%+v]", err, res)
+	}
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

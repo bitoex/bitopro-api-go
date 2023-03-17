@@ -36,8 +36,13 @@ type OrderInfo struct {
 func (api *AuthAPI) GetOrder(pair string, orderID int) (*OrderInfo, error) {
 	var data OrderInfo
 
-	code, res := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID), api.proxy)
-	if err := json.Unmarshal([]byte(res), &data); err != nil {
+	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID), api.proxy)
+
+	if err != nil {
+		data.Error = fmt.Errorf("req err:[%+v], res:[%+v]", err, res)
+	}
+
+	if err = json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = err
 	}
 
