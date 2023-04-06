@@ -67,7 +67,9 @@ func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint, proxy string)
 	req.Set("X-BITOPRO-API", "golang")
 
 	res, body, errList := req.End()
-
+	if len(errList) > 0 {
+		return 0, body, getErrByErrList(errList)
+	}
 	if len(errList) == 0 {
 		return res.StatusCode, body, nil
 	}
