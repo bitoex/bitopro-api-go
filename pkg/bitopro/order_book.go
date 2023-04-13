@@ -28,10 +28,10 @@ func getOrderBook(pair string, limit int, proxy string) *OrderBook {
 	code, res, err := internal.ReqPublic(fmt.Sprintf("%s/%s?limit=%d", "v3/order-book", pair, limit), proxy)
 	if err != nil {
 		data.Error = err.Error()
-	}
-
-	if err := json.Unmarshal([]byte(res), &data); err != nil {
-		data.Error = res
+	} else {
+		if err := json.Unmarshal([]byte(res), &data); err != nil {
+			data.Error = res
+		}
 	}
 
 	data.Code = code

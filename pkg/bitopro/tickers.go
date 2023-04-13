@@ -18,10 +18,10 @@ func getTickers(proxy string) *Tickers {
 	code, res, err := internal.ReqPublic("v3/tickers", proxy)
 	if err != nil {
 		data.Error = err.Error()
-	}
-
-	if err := json.Unmarshal([]byte(res), &data); err != nil {
-		data.Error = res
+	} else {
+		if err := json.Unmarshal([]byte(res), &data); err != nil {
+			data.Error = res
+		}
 	}
 
 	data.Code = code
