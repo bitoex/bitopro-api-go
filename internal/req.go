@@ -91,6 +91,9 @@ func ReqWithBody(identity, apiKey, apiSecret, endpoint, proxy string, param map[
 	req.Send(body)
 
 	res, body, errList := req.End()
+	if len(errList) > 0 {
+		return 0, body, getErrByErrList(errList)
+	}
 
 	if len(errList) == 0 {
 		return res.StatusCode, body, nil
