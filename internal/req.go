@@ -35,14 +35,16 @@ func getReq(proxy string) *gorequest.SuperAgent {
 }
 
 // ReqPublic func
-func ReqPublic(api, proxy string) (int, string) {
+func ReqPublic(api, proxy string) (int, string, error) {
 	req := getReq(proxy)
 	req = req.Get(fmt.Sprintf("%s/%s", ApiURL, api))
 	req.Set("X-BITOPRO-API", "golang")
 
-	res, body, _ := req.End()
-
-	return res.StatusCode, body
+	res, body, errList := req.End()
+	if len(errList) > 0 {
+		return 0, body, getErrByErrList(errList)
+	}
+	return res.StatusCode, body, nil
 }
 
 // ReqWithoutBody func

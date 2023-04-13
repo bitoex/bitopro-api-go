@@ -25,7 +25,10 @@ type OrderBook struct {
 func getOrderBook(pair string, limit int, proxy string) *OrderBook {
 	var data OrderBook
 
-	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s?limit=%d", "v3/order-book", pair, limit), proxy)
+	code, res, err := internal.ReqPublic(fmt.Sprintf("%s/%s?limit=%d", "v3/order-book", pair, limit), proxy)
+	if err != nil {
+		data.Error = err.Error()
+	}
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

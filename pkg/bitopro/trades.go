@@ -24,7 +24,10 @@ type Trade struct {
 func getTrades(pair, proxy string) *Trade {
 	var data Trade
 
-	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s", "v3/trades", pair), proxy)
+	code, res, err := internal.ReqPublic(fmt.Sprintf("%s/%s", "v3/trades", pair), proxy)
+	if err != nil {
+		data.Error = err.Error()
+	}
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

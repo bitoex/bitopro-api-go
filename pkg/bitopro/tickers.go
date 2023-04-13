@@ -15,7 +15,10 @@ type Tickers struct {
 func getTickers(proxy string) *Tickers {
 	var data Tickers
 
-	code, res := internal.ReqPublic("v3/tickers", proxy)
+	code, res, err := internal.ReqPublic("v3/tickers", proxy)
+	if err != nil {
+		data.Error = err.Error()
+	}
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res

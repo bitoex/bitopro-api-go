@@ -27,7 +27,10 @@ type Ticker struct {
 func getTicker(pair, proxy string) *Ticker {
 	var data Ticker
 
-	code, res := internal.ReqPublic(fmt.Sprintf("%s/%s", "v3/tickers", pair), proxy)
+	code, res, err := internal.ReqPublic(fmt.Sprintf("%s/%s", "v3/tickers", pair), proxy)
+	if err != nil {
+		data.Error = err.Error()
+	}
 
 	if err := json.Unmarshal([]byte(res), &data); err != nil {
 		data.Error = res
