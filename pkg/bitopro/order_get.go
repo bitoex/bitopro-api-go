@@ -33,10 +33,10 @@ type OrderInfo struct {
 }
 
 // GetOrder Ref. https://developer.bitopro.com/docs#operation/getOrderStatus
-func (api *AuthAPI) GetOrder(pair string, orderID int) (*OrderInfo, error) {
+func (api *AuthAPI) GetOrder(pair string, orderID string) (*OrderInfo, error) {
 	var data OrderInfo
 
-	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s/%s/%d", "v3/orders", pair, orderID), api.proxy)
+	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s/%s/%s", "v3/orders", pair, orderID), api.proxy)
 
 	if err != nil {
 		data.Error = fmt.Errorf("req err:[%+v], res:[%+v]", err, res)
