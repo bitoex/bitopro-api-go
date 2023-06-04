@@ -80,7 +80,10 @@ func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint, proxy string)
 
 // ReqWithBody func
 func ReqWithBody(identity, apiKey, apiSecret, endpoint, proxy string, param map[string]interface{}) (int, string, error) {
-	body, payload := getPostPayload(param)
+	body, payload, err := getPostPayload(param)
+	if err != nil {
+		return 0, "", err
+	}
 	sig := getSig(apiSecret, payload)
 	url := fmt.Sprintf("%s/%s", ApiURL, endpoint)
 	req := getReq(proxy)
@@ -110,4 +113,28 @@ func getErrByErrList(errList []error) error {
 		errStr = fmt.Sprintf("%d:%s; ", i, v.Error())
 	}
 	return fmt.Errorf("errs: %s", errStr)
+}
+
+func NewAuthHeader(identity, apiKey, apiSecret string, method string, body map[string]interface{}) (http.Header, error) {
+	var (
+		payload string
+		err     error
+	)
+	if method == "POST" {
+		_, payload, err = getPostPayload(body)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		payload = getNonPostPayload(identity, GetTimestamp())
+	}
+	sig := getSig(apiSecret, payload)
+
+	header := http.Header{}
+	header.Set("X-BITOPRO-APIKEY", apiKey)
+	header.Set("X-BITOPRO-PAYLOAD", payload)
+	header.Set("X-BITOPRO-SIGNATURE", sig)
+	header.Set("X-BITOPRO-API", "golang")
+
+	return header, nil
 }

@@ -11,7 +11,7 @@ func Test_getNonPostPayload(t *testing.T) {
 }
 
 func Test_getPostPayload(t *testing.T) {
-	if _, payload := getPostPayload(map[string]interface{}{
+	if _, payload, _ := getPostPayload(map[string]interface{}{
 		"action":    "buy",
 		"type":      "limit",
 		"price":     "1.123456789",
@@ -20,4 +20,5 @@ func Test_getPostPayload(t *testing.T) {
 	}); payload != "eyJhY3Rpb24iOiJidXkiLCJhbW91bnQiOiI2NjYiLCJwcmljZSI6IjEuMTIzNDU2Nzg5IiwidGltZXN0YW1wIjoxNTU0MzgwOTA5MTMxLCJ0eXBlIjoibGltaXQifQ==" {
 		t.Error("not match")
 	}
+
 }

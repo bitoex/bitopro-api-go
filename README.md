@@ -24,6 +24,12 @@
       - [CreateOrderLimitBuy/CreateOrderLimitSell/CreateOrderMarketBuy/CreateOrderMarketSell](#CreateOrderLimitBuyCreateOrderLimitSellCreateOrderMarketBuyCreateOrderMarketSell)
       - [CancelOrder](#CancelOrder)
       - [GetOrder](#GetOrder)
+    - [Websocket](#Websocket)
+      - [Tickers Stream]
+      - [Trades Stream]
+      - [OrderBook Stream]
+      - [AccountBalance Stream]
+      - [UserOrder Stream]
   - [Contributing](#Contributing)
   - [License](#License)
 
@@ -518,6 +524,103 @@ authClient.GetOrder("btc_twd", 2640904509)
 ```
 
 </details>
+
+### Websocket
+
+```go
+publicWs := ws.NewPublicWs()
+privateWs := ws.NewPrivateWs("email", "api_key", "api_secret)
+```
+
+
+#### Ticker Stream
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go)
+
+```go
+tickers, closeCh := publicWs.RunTickerWsConsumer(ctx, []string{"BTC_TWD"})
+defer close(closeCh)
+
+for {
+  ticker <- tickers
+  if ticker.Err != nil {
+    fmt.Printf("%+v\n", err)
+    return
+  }
+  fmt.Printf("%+v\n", ticker)
+}
+
+```
+
+#### OrderBook Stream
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go)
+
+```go
+orderBooks, closeCh := publicWs.RunOrderbookWsConsumer(ctx, []string{"BTC_TWD:30"})
+defer close(closeCh)
+
+for {
+  orderBook <- orderBooks
+  if orderBook.Err != nil {
+    fmt.Printf("%+v\n", err)
+    return
+  }
+  fmt.Printf("%+v\n", orderBook)
+  fmt.Printf("%+v\n", len(orderBook.Bids)) // => 30
+  fmt.Printf("%+v\n", len(orderBook.Ask)  // => 30
+}
+
+```
+
+#### Trade Stream
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go)
+
+```go
+trades, closeCh := publicWs.RunTradesWsConsumer(ctx, []string{"BTC_TWD"})
+defer close(closeCh)
+
+for {
+  trade <- trades
+  if trade.Err != nil {
+    fmt.Printf("%+v\n", err)
+    return
+  }
+  fmt.Printf("%+v\n", trade)
+}
+```
+
+#### AccountBalance Stream
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/private_ws_test.go)
+
+```go
+accBalances, closeCh := privateWs.RunAccountBalancesWsConsumer(ctx)
+defer close(closeCh)
+
+for {
+  accBalance <- accBalances
+  if accBalance.Err != nil {
+    fmt.Printf("%+v\n", err)
+    return
+  }
+  fmt.Printf("%+v\n", accBalance)
+}
+```
+
+#### UserOrders Stream
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/private_ws_test.go)
+
+```go
+ordersList, closeCh := privateWs.RunOrdersWsConsumer(ctx)
+defer close(closeCh)
+
+for {
+  orders <- ordersList
+  if orders.Err != nil {
+    fmt.Printf("%+v\n", err)
+    return
+  }
+  fmt.Printf("%+v\n", orders)
+}
+```
 
 ## Contributing
 
