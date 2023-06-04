@@ -25,11 +25,11 @@
       - [CancelOrder](#CancelOrder)
       - [GetOrder](#GetOrder)
     - [Websocket](#Websocket)
-      - [Tickers Stream]
-      - [Trades Stream]
-      - [OrderBook Stream]
-      - [AccountBalance Stream]
-      - [UserOrder Stream]
+      - [Tickers Stream](#ticker-stream)
+      - [Trades Stream](#trade-stream)
+      - [OrderBook Stream](#orderbook-stream)
+      - [AccountBalance Stream](#accountbalance-stream)
+      - [UserOrder Stream](#userorders-stream)
   - [Contributing](#Contributing)
   - [License](#License)
 
