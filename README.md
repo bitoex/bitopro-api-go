@@ -534,7 +534,7 @@ privateWs := ws.NewPrivateWs("email", "api_key", "api_secret)
 
 
 #### Ticker Stream
-[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go)
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go#L12)
 
 ```go
 tickers, closeCh := publicWs.RunTickerWsConsumer(ctx, []string{"BTC_TWD"})
@@ -552,7 +552,7 @@ for {
 ```
 
 #### OrderBook Stream
-[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go)
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go#L39)
 
 ```go
 orderBooks, closeCh := publicWs.RunOrderbookWsConsumer(ctx, []string{"BTC_TWD:30"})
@@ -572,7 +572,7 @@ for {
 ```
 
 #### Trade Stream
-[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go)
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/public_ws_test.go#L62)
 
 ```go
 trades, closeCh := publicWs.RunTradesWsConsumer(ctx, []string{"BTC_TWD"})
@@ -589,7 +589,7 @@ for {
 ```
 
 #### AccountBalance Stream
-[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/private_ws_test.go)
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/private_ws_test.go#L9)
 
 ```go
 accBalances, closeCh := privateWs.RunAccountBalancesWsConsumer(ctx)
@@ -606,7 +606,7 @@ for {
 ```
 
 #### UserOrders Stream
-[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/private_ws_test.go)
+[example](https://github.com/bitoex/bitopro-api-go/blob/master/pkg/ws/private_ws_test.go#L26)
 
 ```go
 ordersList, closeCh := privateWs.RunOrdersWsConsumer(ctx)
