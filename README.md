@@ -566,7 +566,7 @@ for {
   }
   fmt.Printf("%+v\n", orderBook)
   fmt.Printf("%+v\n", len(orderBook.Bids)) // => 30
-  fmt.Printf("%+v\n", len(orderBook.Ask)  // => 30
+  fmt.Printf("%+v\n", len(orderBook.Ask))  // => 30
 }
 
 ```
