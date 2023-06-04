@@ -529,7 +529,7 @@ authClient.GetOrder("btc_twd", 2640904509)
 
 ```go
 publicWs := ws.NewPublicWs()
-privateWs := ws.NewPrivateWs("email", "api_key", "api_secret)
+privateWs := ws.NewPrivateWs("email", "api_key", "api_secret")
 ```
 
 
