@@ -8,7 +8,7 @@ import (
 func TestAuthAPI_GetOrder(t *testing.T) {
 	var resp []byte
 	var err error
-	getAuthResp, err := getAuthClient().GetOrder("eth_twd", "384453381")
+	getAuthResp, err := getAuthClient().GetOrder("usdt_twd", "384453381")
 	if err != nil {
 		t.Errorf("getAuthResp err %+v\n", err)
 	}

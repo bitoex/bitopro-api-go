@@ -35,3 +35,27 @@ func (api *AuthAPI) CancelOrder(pair string, orderID int) *CancelOrder {
 
 	return &data
 }
+
+type CancelAllResp struct {
+	Data  map[string][]string
+	Error string
+	Code  int
+}
+
+func (api *AuthAPI) CancelAll(pair string) *CancelAllResp {
+	var data CancelAllResp
+
+	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "DELETE", fmt.Sprintf("%s/%s", "v3/orders", pair), api.proxy)
+
+	if err != nil {
+		data.Error = fmt.Sprintf("req err:[%+v], res:[%+v]", err, res)
+	}
+
+	if err = json.Unmarshal([]byte(res), &data); err != nil {
+		data.Error = res
+	}
+
+	data.Code = code
+
+	return &data
+}
