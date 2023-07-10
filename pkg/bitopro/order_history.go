@@ -3,6 +3,7 @@ package bitopro
 import (
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/bitoex/bitopro-api-go/internal"
 )
@@ -14,10 +15,15 @@ type OrderHistory struct {
 }
 
 // GetOrderHistory Ref. https://developer.bitopro.com/docs#operation/getOrderHistory
-func (api *AuthAPI) GetOrderHistory(pair string) *OrderHistory {
+func (api *AuthAPI) GetOrderHistory(pair string, queryParams url.Values) *OrderHistory {
 	var data OrderHistory
 
-	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", fmt.Sprintf("%s%s", "v3/orders/all/", pair), api.proxy)
+	queryStr := queryParams.Encode()
+	endpoint := fmt.Sprintf("%s%s", "v3/orders/all/", pair)
+	if queryStr != "" {
+		endpoint = fmt.Sprintf("%s%s?%s", "v3/orders/all/", pair, &queryStr)
+	}
+	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", endpoint, api.proxy)
 
 	if err != nil {
 		data.Error = fmt.Sprintf("req err:[%+v], res:[%+v]", err, res)
