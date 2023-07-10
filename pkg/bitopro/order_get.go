@@ -2,6 +2,7 @@ package bitopro
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/bitoex/bitopro-api-go/internal"
@@ -47,6 +48,10 @@ func (api *AuthAPI) GetOrder(pair string, orderID string) (*OrderInfo, error) {
 	}
 
 	data.Code = code
+	if code >= 400 {
+		data.Error = errors.New(string(res))
+		return &data, data.Error
+	}
 	if data.Error != nil {
 		return &data, data.Error
 	}
