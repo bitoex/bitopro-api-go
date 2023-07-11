@@ -19,9 +19,9 @@ func (api *AuthAPI) GetOrderHistory(pair string, queryParams url.Values) *OrderH
 	var data OrderHistory
 
 	queryStr := queryParams.Encode()
-	endpoint := fmt.Sprintf("%s%s", "v3/orders/all", pair)
+	endpoint := fmt.Sprintf("%s%s", "v3/orders/all/", pair)
 	if queryStr != "" {
-		endpoint = fmt.Sprintf("%s%s?%s", "v3/orders/all", pair, queryStr)
+		endpoint = fmt.Sprintf("%s%s?%s", "v3/orders/all/", pair, queryStr)
 	}
 	code, res, err := internal.ReqWithoutBody(api.identity, api.Key, api.secret, "GET", endpoint, api.proxy)
 
