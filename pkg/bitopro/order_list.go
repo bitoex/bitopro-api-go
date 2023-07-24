@@ -23,13 +23,15 @@ func (api *AuthAPI) GetOrderList(pair string, active bool, page uint) *OrderList
 
 	if err != nil {
 		data.Error = fmt.Sprintf("req err:[%+v], res:[%+v]", err, res)
+		return &data
 	}
-
-	if err := json.Unmarshal([]byte(res), &data); err != nil {
-		data.Error = res
-	}
-
 	data.Code = code
-
+	if code < 400 && res != "" {
+		if err := json.Unmarshal([]byte(res), &data); err != nil {
+			data.Error = res
+		}
+	} else {
+		data.Error = string(res)
+	}
 	return &data
 }
