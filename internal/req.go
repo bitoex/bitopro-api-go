@@ -60,7 +60,7 @@ func ReqWithoutBody(identity, apiKey, apiSecret, method, endpoint, proxy string)
 	case "DELETE":
 		req = req.Delete(url)
 	default:
-		return http.StatusMethodNotAllowed, fmt.Sprintf("Method Not Allowed: %s", method), fmt.Errorf("Method Not Allowed: %s", method)
+		return http.StatusMethodNotAllowed, fmt.Sprintf("Method Not Allowed: %s", method), fmt.Errorf("method Not Allowed: %s", method)
 	}
 
 	req.Set("X-BITOPRO-APIKEY", apiKey)
