@@ -20,7 +20,7 @@ func NewPrivateWs(email, apiKey, apiSecret string) *Ws {
 // NewWs func
 func NewWs(email, apiKey, apiSecret, endpoint string) *Ws {
 	if endpoint == "" {
-		endpoint = "wss://stream.bitopro.com:9443"
+		endpoint = "wss://stream.bitopro.com:443"
 	}
 	return &Ws{
 		Endpoint:  endpoint,

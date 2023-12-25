@@ -197,3 +197,28 @@ type OrdersData struct {
 	} `json:"data"`
 	Err error
 }
+
+type MatchesData struct {
+	Event     string    `json:"event"`
+	Timestamp int64     `json:"timestamp"`
+	DateTime  string    `json:"datetime"`
+	Data      MatchData `json:"data"`
+	Err       error
+}
+
+type MatchData struct {
+	Base                 string `json:"base"`
+	Quote                string `json:"quote"`
+	Side                 string `json:"side"`
+	Price                string `json:"price"`
+	Volume               string `json:"volume"`
+	Fee                  string `json:"fee"`
+	FeeCurrency          string `json:"feeCurrency"`
+	TransactionTimestamp int64  `json:"tsransactionTimestamp"`
+	EventTimestamp       int64  `json:"eventTimestamp"`
+	OrderID              string `json:"orderID"`
+	OrderType            string `json:"orderType"`
+	MatchID              string `json:"matchID"`
+	IsMarket             bool   `json:"isMarket"`
+	IsMaker              bool   `json:"isMaker"`
+}
